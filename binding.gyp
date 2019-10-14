@@ -7,6 +7,7 @@
                 "scryptjane.c",
                 "scryptn.c",
 		"yespower/yespower-opt.c",
+		"yespower/crypto/blake2b.c",
 		"yespower/yespower.c",
                 "yescrypt/sha256_Y.c",
                 "yescrypt/yescrypt-best.c",
