@@ -55,7 +55,6 @@ typedef yespower_region_t yespower_local_t;
  * yespower parameters combined into one struct.
  */
 typedef struct {
-	yespower_version_t version;
 	uint32_t N, r;
 	const uint8_t *pers;
 	size_t perslen;

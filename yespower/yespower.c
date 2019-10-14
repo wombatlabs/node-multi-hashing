@@ -32,7 +32,6 @@
 void yespower_hash(const char *input, char *output)
 {
         yespower_params_t params = {
-                .version = YESPOWER_1_0,
                 .N = 2048,
                 .r = 32,
                 .pers = NULL,
