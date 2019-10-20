@@ -15,6 +15,7 @@
 #include "sha3/sph_shavite.h"
 #include "sha3/sph_simd.h"
 #include "sha3/sph_echo.h"
+#include "sha3/sph_biblepay.h"
 
 
 void x11_hash(const char* input, char* output, uint32_t len)
@@ -25,12 +26,14 @@ void x11_hash(const char* input, char* output, uint32_t len)
     sph_skein512_context     ctx_skein;
     sph_jh512_context        ctx_jh;
     sph_keccak512_context    ctx_keccak;
+    sph_biblepay512_context  ctx_biblepay;
 
     sph_luffa512_context		ctx_luffa1;
     sph_cubehash512_context		ctx_cubehash1;
     sph_shavite512_context		ctx_shavite1;
     sph_simd512_context		ctx_simd1;
     sph_echo512_context		ctx_echo1;
+    
 
     //these uint512 in the c++ source of the client are backed by an array of uint32
     uint32_t hashA[16], hashB[16];	
@@ -59,25 +62,29 @@ void x11_hash(const char* input, char* output, uint32_t len)
     sph_keccak512 (&ctx_keccak, hashA, 64);
     sph_keccak512_close(&ctx_keccak, hashB);
 	
-    sph_luffa512_init (&ctx_luffa1);
-    sph_luffa512 (&ctx_luffa1, hashB, 64);
-    sph_luffa512_close (&ctx_luffa1, hashA);	
+    sph_biblepay512_init(&ctx_biblepay);
+    sph_biblepay512 (&ctx_biblepay, hashB, 64);
+    sph_biblepay512_close(&ctx_biblepay, hashA);
 	
-    sph_cubehash512_init (&ctx_cubehash1); 
-    sph_cubehash512 (&ctx_cubehash1, hashA, 64);   
-    sph_cubehash512_close(&ctx_cubehash1, hashB);  
+    // sph_luffa512_init (&ctx_luffa1);
+    // sph_luffa512 (&ctx_luffa1, hashB, 64);
+    // sph_luffa512_close (&ctx_luffa1, hashA);	
 	
-    sph_shavite512_init (&ctx_shavite1);
-    sph_shavite512 (&ctx_shavite1, hashB, 64);   
-    sph_shavite512_close(&ctx_shavite1, hashA);  
+    // sph_cubehash512_init (&ctx_cubehash1); 
+    // sph_cubehash512 (&ctx_cubehash1, hashA, 64);   
+    // sph_cubehash512_close(&ctx_cubehash1, hashB);  
 	
-    sph_simd512_init (&ctx_simd1); 
-    sph_simd512 (&ctx_simd1, hashA, 64);   
-    sph_simd512_close(&ctx_simd1, hashB); 
+    // sph_shavite512_init (&ctx_shavite1);
+    // sph_shavite512 (&ctx_shavite1, hashB, 64);   
+    // sph_shavite512_close(&ctx_shavite1, hashA);  
 	
-    sph_echo512_init (&ctx_echo1); 
-    sph_echo512 (&ctx_echo1, hashB, 64);   
-    sph_echo512_close(&ctx_echo1, hashA); 
+    // sph_simd512_init (&ctx_simd1); 
+    // sph_simd512 (&ctx_simd1, hashA, 64);   
+    // sph_simd512_close(&ctx_simd1, hashB); 
+	
+    // sph_echo512_init (&ctx_echo1); 
+    // sph_echo512 (&ctx_echo1, hashB, 64);   
+    // sph_echo512_close(&ctx_echo1, hashA); 
 
     memcpy(output, hashA, 32);
 	
