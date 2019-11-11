@@ -19,8 +19,8 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <algos/sha256.h>
-#include <algos/balloon.h>
+#include <sha256.h>
+#include <balloon.h>
 
 typedef struct {
 	aes_key ks;
