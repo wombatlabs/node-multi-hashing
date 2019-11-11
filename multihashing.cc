@@ -604,7 +604,7 @@ DECLARE_FUNC(balloon){
     char * input = Buffer::Data(target);
     char output[32];
 
-    lballoon_hash(input, output);
+    balloon_hash(input, output);
 
     SET_BUFFER_RETURN(output, 32);
 }
