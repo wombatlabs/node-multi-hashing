@@ -17,6 +17,7 @@
                 "yescrypt-0.5/yescrypt.c",
                 "keccak.c",
 		"lbry.c",
+	        "balloon.c",
                 "skein.c",
                 "x11.c",
                 "Lyra2RE.c",
