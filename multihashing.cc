@@ -16,6 +16,7 @@ extern "C" {
     #include "hefty1.h"
     #include "keccak.h"
     #include "lbry.h"
+    #include "balloon.h"
     #include "Lyra2RE.h"
     #include "neoscrypt.h"
     #include "nist5.h"
@@ -121,6 +122,7 @@ using namespace v8;
  DECLARE_CALLBACK(hefty1, hefty1_hash, 32);
  DECLARE_CALLBACK(keccak, keccak_hash, 32);
  DECLARE_CALLBACK(lbry, lbry_hash, 32);
+DECLARE_CALLBACK(balloon, balloon_hash, 32);
  DECLARE_CALLBACK(nist5, nist5_hash, 32);
  DECLARE_CALLBACK(quark, quark_hash, 32);
  DECLARE_CALLBACK(qubit, qubit_hash, 32);
@@ -604,6 +606,7 @@ DECLARE_INIT(init) {
     NODE_SET_METHOD(exports, "hefty1", hefty1);
     NODE_SET_METHOD(exports, "keccak", keccak);
     NODE_SET_METHOD(exports, "lbry", lbry);
+    NODE_SET_METHOD(exports, "balloon", balloon);
     NODE_SET_METHOD(exports, "lyra2re",lyra2re);
     NODE_SET_METHOD(exports, "lyra2re2",lyra2re2);
     NODE_SET_METHOD(exports, "neoscrypt", neoscrypt);
