@@ -22,7 +22,7 @@
 #include "sha3/sph_sha2.h"
 #include "sha3/sph_haval.h"
 
-void bizzium_hash(void *output, const void *input)
+void bizzium_hash(const char* input, char* output, uint32_t len)
 {
 	uint32_t _ALIGN(128) hash[20];
 
