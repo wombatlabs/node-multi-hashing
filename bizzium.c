@@ -24,8 +24,6 @@
 
 void bizzium_hash(const char* input, char* output, uint32_t len)
 {
-	uint32_t _ALIGN(128) hash[20];
-
 	sph_blake512_context     ctx_blake;
 	sph_bmw512_context       ctx_bmw;
 	sph_groestl512_context   ctx_groestl;
