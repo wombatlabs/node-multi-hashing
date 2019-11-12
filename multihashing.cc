@@ -122,7 +122,6 @@ using namespace v8;
  DECLARE_CALLBACK(hefty1, hefty1_hash, 32);
  DECLARE_CALLBACK(keccak, keccak_hash, 32);
  DECLARE_CALLBACK(lbry, lbry_hash, 32);
- DECLARE_CALLBACK(bizzium, bizzium_hash, 32);
  DECLARE_CALLBACK(nist5, nist5_hash, 32);
  DECLARE_CALLBACK(quark, quark_hash, 32);
  DECLARE_CALLBACK(qubit, qubit_hash, 32);
