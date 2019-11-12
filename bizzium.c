@@ -24,6 +24,8 @@
 
 void bizzium_hash(const char* input, char* output, uint32_t len)
 {
+	uint32_t _ALIGN(128) hash[20];
+
 	sph_blake512_context     ctx_blake;
 	sph_bmw512_context       ctx_bmw;
 	sph_groestl512_context   ctx_groestl;
@@ -44,59 +46,59 @@ void bizzium_hash(const char* input, char* output, uint32_t len)
 
 	sph_blake512_init(&ctx_blake);
 	sph_blake512(&ctx_blake, input, 80);
-	sph_blake512_close(&ctx_blake, output);
+	sph_blake512_close(&ctx_blake, hash);
 
 	sph_luffa512_init(&ctx_luffa);
 	sph_luffa512(&ctx_luffa, hash, 64);
-	sph_luffa512_close(&ctx_luffa, output);
+	sph_luffa512_close(&ctx_luffa, hash);
 	
 	sph_simd512_init(&ctx_simd);
 	sph_simd512(&ctx_simd, hash, 64);
-	sph_simd512_close(&ctx_simd, output);
+	sph_simd512_close(&ctx_simd, hash);
 	
 	sph_echo512_init(&ctx_echo);
 	sph_echo512(&ctx_echo, hash, 64);
-	sph_echo512_close(&ctx_echo, output);
+	sph_echo512_close(&ctx_echo, hash);
 	
 	sph_hamsi512_init(&ctx_hamsi);
 	sph_hamsi512(&ctx_hamsi, hash, 64);
-	sph_hamsi512_close(&ctx_hamsi, output);
+	sph_hamsi512_close(&ctx_hamsi, hash);
 
 	sph_haval256_5_init(&ctx_haval);
 	sph_haval256_5(&ctx_haval,(const void*) hash, 64);
-	sph_haval256_5_close(&ctx_haval, output);
+	sph_haval256_5_close(&ctx_haval, hash);
 
 	sph_shabal512_init(&ctx_shabal);
 	sph_shabal512(&ctx_shabal, hash, 64);
-	sph_shabal512_close(&ctx_shabal, output);
+	sph_shabal512_close(&ctx_shabal, hash);
 	
 	sph_skein512_init(&ctx_skein);
 	sph_skein512(&ctx_skein, hash, 64);
-	sph_skein512_close(&ctx_skein, output);
+	sph_skein512_close(&ctx_skein, hash);
 	
 	sph_skein512_init(&ctx_skein);
 	sph_skein512(&ctx_skein, hash, 64);
-	sph_skein512_close(&ctx_skein, output);
+	sph_skein512_close(&ctx_skein, hash);
 	
 	sph_keccak512_init(&ctx_keccak);
 	sph_keccak512(&ctx_keccak, hash, 64);
-	sph_keccak512_close(&ctx_keccak, output);
+	sph_keccak512_close(&ctx_keccak, hash);
 	
 	sph_jh512_init(&ctx_jh);
 	sph_jh512(&ctx_jh, hash, 64);
-	sph_jh512_close(&ctx_jh, output);
+	sph_jh512_close(&ctx_jh, hash);
 	
 	sph_shavite512_init(&ctx_shavite);
 	sph_shavite512(&ctx_shavite, hash, 64);
-	sph_shavite512_close(&ctx_shavite, output);
+	sph_shavite512_close(&ctx_shavite, hash);
 	
 	sph_groestl512_init(&ctx_groestl);
 	sph_groestl512(&ctx_groestl, hash, 64);
-	sph_groestl512_close(&ctx_groestl, output);
+	sph_groestl512_close(&ctx_groestl, hash);
 	
 	sph_bmw512_init(&ctx_bmw);
 	sph_bmw512(&ctx_bmw, hash, 64);
-	sph_bmw512_close(&ctx_bmw, output);
+	sph_bmw512_close(&ctx_bmw, hash);
 
 	memcpy(output, hash, 32);
 }
