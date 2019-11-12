@@ -16,7 +16,7 @@ extern "C" {
     #include "hefty1.h"
     #include "keccak.h"
     #include "lbry.h"
-    #include "balloon.h"
+    #include "bizzium.h"
     #include "Lyra2RE.h"
     #include "neoscrypt.h"
     #include "nist5.h"
@@ -590,7 +590,7 @@ DECLARE_FUNC(yescrypt_bitzeny){
 
     SET_BUFFER_RETURN(output, 32);
 }
-DECLARE_FUNC(balloon){
+DECLARE_FUNC(bizzium){
     DECLARE_SCOPE;
 
     if (args.Length() < 1)
@@ -604,7 +604,7 @@ DECLARE_FUNC(balloon){
     char * input = Buffer::Data(target);
     char output[32];
 
-    balloon_hash(input, output);
+    bizzium_hash(input, output);
 
     SET_BUFFER_RETURN(output, 32);
 }
@@ -623,7 +623,7 @@ DECLARE_INIT(init) {
     NODE_SET_METHOD(exports, "hefty1", hefty1);
     NODE_SET_METHOD(exports, "keccak", keccak);
     NODE_SET_METHOD(exports, "lbry", lbry);
-    NODE_SET_METHOD(exports, "balloon", balloon);
+    NODE_SET_METHOD(exports, "bizzium", bizzium);
     NODE_SET_METHOD(exports, "lyra2re",lyra2re);
     NODE_SET_METHOD(exports, "lyra2re2",lyra2re2);
     NODE_SET_METHOD(exports, "neoscrypt", neoscrypt);
