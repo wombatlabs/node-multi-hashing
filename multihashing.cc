@@ -122,6 +122,7 @@ using namespace v8;
  DECLARE_CALLBACK(hefty1, hefty1_hash, 32);
  DECLARE_CALLBACK(keccak, keccak_hash, 32);
  DECLARE_CALLBACK(lbry, lbry_hash, 32);
+ DECLARE_CALLBACK(bizzium, bizzium_hash, 32);
  DECLARE_CALLBACK(nist5, nist5_hash, 32);
  DECLARE_CALLBACK(quark, quark_hash, 32);
  DECLARE_CALLBACK(qubit, qubit_hash, 32);
@@ -587,24 +588,6 @@ DECLARE_FUNC(yescrypt_bitzeny){
 
 
    yescrypt_bitzeny_hash(input, output);
-
-    SET_BUFFER_RETURN(output, 32);
-}
-DECLARE_FUNC(bizzium){
-    DECLARE_SCOPE;
-
-    if (args.Length() < 1)
-        RETURN_EXCEPT("You must provide one argument.");
-
-    Local<Object> target = args[0]->ToObject();
-
-    if(!Buffer::HasInstance(target))
-        RETURN_EXCEPT("Argument should be a buffer object.");
-
-    char * input = Buffer::Data(target);
-    char output[32];
-
-    bizzium_hash(input, output);
 
     SET_BUFFER_RETURN(output, 32);
 }
