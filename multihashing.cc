@@ -566,7 +566,7 @@ DECLARE_FUNC(yespowerinter){
     uint32_t input_len = Buffer::Length(target);
     char output[32];
 
-    yespowerinter_hash(input, output, input_len);
+    yespowerinter_hash(input, output);
 
     SET_BUFFER_RETURN(output, 32);
 }
