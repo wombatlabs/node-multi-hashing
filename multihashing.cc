@@ -525,7 +525,7 @@ DECLARE_FUNC(cpupower){
     char output[32];
 
 
-    yespowerinter_hash(input, output);
+    cpupower_hash(input, output);
 
     SET_BUFFER_RETURN(output, 32);
 }
