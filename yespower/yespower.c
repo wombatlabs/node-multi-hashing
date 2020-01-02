@@ -112,6 +112,17 @@ void cpupower_hash(const char *input, char *output)
         yespower_tls((const uint8_t *) input, 80, &params, (yespower_binary_t *) output);
 }
 
+void yespowerinter_hash(const char *input, char *output)
+{
+        yespower_params_t params = {
+                .N = 2048,
+                .r = 32,
+                .pers = "InterITC",
+                .perslen = 8
+        };
+        yespower_tls((const uint8_t *) input, 80, &params, (yespower_binary_t *) output);
+}
+
 void power2b_hash(const char *input, char *output)
 {
 	yespower_params_t params = {
