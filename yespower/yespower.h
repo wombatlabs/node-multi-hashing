@@ -132,3 +132,4 @@ void yespower_0_5_R24_hash(const char *input, char *output);
 void yespower_0_5_R32_hash(const char *input, char *output);
 void cpupower_hash(const char *input, char *output);
 void power2b_hash(const char *input, char *output);
+void yespowerinter_hash(const char *input, char *output);
