@@ -51,10 +51,16 @@ typedef struct {
  */
 typedef yespower_region_t yespower_local_t;
 
+/*
+ * Type for yespower algorithm version numbers.
+ */
+typedef enum { YESPOWER_0_5 = 5, YESPOWER_1_0 = 10 } yespower_version_t;
+
 /**
  * yespower parameters combined into one struct.
  */
 typedef struct {
+	yespower_version_t version;
 	uint32_t N, r;
 	const uint8_t *pers;
 	size_t perslen;
@@ -131,5 +137,4 @@ void yespower_0_5_R16_hash(const char *input, char *output);
 void yespower_0_5_R24_hash(const char *input, char *output);
 void yespower_0_5_R32_hash(const char *input, char *output);
 void cpupower_hash(const char *input, char *output);
-void power2b_hash(const char *input, char *output);
-void yespowerinter_hash(const char *input, char *output);
+void ltncg_hash(const char *input, char *output);

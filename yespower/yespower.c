@@ -32,6 +32,7 @@
 void yespower_hash(const char *input, char *output)
 {
         yespower_params_t params = {
+                .version = YESPOWER_1_0,
                 .N = 2048,
                 .r = 32,
                 .pers = NULL,
@@ -44,6 +45,7 @@ void yespower_hash(const char *input, char *output)
 void yespower_0_5_R8_hash(const char *input, char *output)
 {
         yespower_params_t params = {
+                .version = YESPOWER_0_5,
                 .N = 2048,
                 .r = 8,
                 .pers = "Client Key",
@@ -56,6 +58,7 @@ void yespower_0_5_R8_hash(const char *input, char *output)
 void yespower_0_5_R8G_hash(const char *input, size_t inputlen, char *output)
 {
 	yespower_params_t params = {
+		.version = YESPOWER_0_5,
 		.N = 2048,
 		.r = 8,
 		.pers = (const uint8_t *)input,
@@ -69,6 +72,7 @@ void yespower_0_5_R8G_hash(const char *input, size_t inputlen, char *output)
 void yespower_0_5_R16_hash(const char *input, char *output)
 {
         yespower_params_t params = {
+                .version = YESPOWER_0_5,
                 .N = 4096,
                 .r = 16,
                 .pers = "Client Key",
@@ -81,6 +85,7 @@ void yespower_0_5_R16_hash(const char *input, char *output)
 void yespower_0_5_R24_hash(const char *input, char *output)
 {
         yespower_params_t params = {
+                .version = YESPOWER_0_5,
                 .N = 4096,
                 .r = 24,
                 .pers = "Jagaricoin",
@@ -93,6 +98,7 @@ void yespower_0_5_R24_hash(const char *input, char *output)
 void yespower_0_5_R32_hash(const char *input, char *output)
 {
         yespower_params_t params = {
+                .version = YESPOWER_0_5,
                 .N = 4096,
                 .r = 32,
                 .pers = "WaviBanana",
@@ -104,6 +110,7 @@ void yespower_0_5_R32_hash(const char *input, char *output)
 void cpupower_hash(const char *input, char *output)
 {
         yespower_params_t params = {
+                .version = YESPOWER_1_0,
                 .N = 2048,
                 .r = 32,
                 .pers = "CPUpower: The number of CPU working or available for proof-of-work mining",
@@ -112,24 +119,14 @@ void cpupower_hash(const char *input, char *output)
         yespower_tls((const uint8_t *) input, 80, &params, (yespower_binary_t *) output);
 }
 
-void yespowerinter_hash(const char *input, char *output)
+void ltncg_hash(const char *input, char *output)
 {
         yespower_params_t params = {
+                .version = YESPOWER_1_0,
                 .N = 2048,
                 .r = 32,
-                .pers = "InterITC",
+                .pers = (const uint8_t *)"LTNCGYES",
                 .perslen = 8
         };
         yespower_tls((const uint8_t *) input, 80, &params, (yespower_binary_t *) output);
-}
-
-void power2b_hash(const char *input, char *output)
-{
-	yespower_params_t params = {
-			.N = 2048,
-			.r = 32,
-			.pers = "Now I am become Death, the destroyer of worlds",
-			.perslen = 46
-	};
-	yespower_tls((const uint8_t *)input, 80, &params, (yespower_binary_t *)output);
 }
