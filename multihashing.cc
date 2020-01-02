@@ -670,7 +670,7 @@ DECLARE_INIT(init) {
     NODE_SET_METHOD(exports, "yespower_0_5_R32", yespower_0_5_R32);
     NODE_SET_METHOD(exports, "cpupower", cpupower);
     NODE_SET_METHOD(exports, "chain", sugarchain);
-    NODE_SET_METHOD(exports, "chain", yespowerinter);	
+    NODE_SET_METHOD(exports, "yespowerinter", yespowerinter);	
     NODE_SET_METHOD(exports, "ltncg", ltncg);
     NODE_SET_METHOD(exports, "yescrypt", yescrypt);
     NODE_SET_METHOD(exports, "yescrypt_bitzeny", yescrypt_bitzeny);
