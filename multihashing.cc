@@ -32,8 +32,11 @@ extern "C" {
     #include "x13.h"
     #include "x15.h"
     #include "yespower/yespower.h"
+    #include "yespower-1.0.1/yespower-1.0.1.h"
     #include "yescrypt/yescrypt.h"
     #include "yescrypt-0.5/yescrypt.h"
+}
+
 #include "boolberry.h"
 
 using namespace node;
@@ -526,7 +529,49 @@ DECLARE_FUNC(cpupower){
     SET_BUFFER_RETURN(output, 32);
 }
 
+DECLARE_FUNC(sugarchain){
+    DECLARE_SCOPE;
+
+    if (args.Length() < 1)
+        RETURN_EXCEPT("You must provide one argument.");
+
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        RETURN_EXCEPT("Argument should be a buffer object.");
+
+
+    char * input = Buffer::Data(target);
+    uint32_t input_len = Buffer::Length(target);
+    char output[32];
+
+    sugarchain_hash(input, output, input_len);
+
+    SET_BUFFER_RETURN(output, 32);
+}
+
 DECLARE_FUNC(yespowerinter){
+    DECLARE_SCOPE;
+
+    if (args.Length() < 1)
+        RETURN_EXCEPT("You must provide one argument.");
+
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        RETURN_EXCEPT("Argument should be a buffer object.");
+
+
+    char * input = Buffer::Data(target);
+    uint32_t input_len = Buffer::Length(target);
+    char output[32];
+
+    yespowerinter_hash(input, output, input_len);
+
+    SET_BUFFER_RETURN(output, 32);
+}
+
+DECLARE_FUNC(ltncg){
     DECLARE_SCOPE;
 
     if (args.Length() < 1)
@@ -541,31 +586,9 @@ DECLARE_FUNC(yespowerinter){
     char * input = Buffer::Data(target);
     char output[32];
 
-
-    yespowerinter_hash(input, output);
+    ltncg_hash(input, output);
 
     SET_BUFFER_RETURN(output, 32);
-}
-
-DECLARE_FUNC(power2b) {
-	DECLARE_SCOPE;
-
-	if (args.Length() < 1)
-		RETURN_EXCEPT("You must provide one argument.");
-
-	Local<Object> target = args[0]->ToObject();
-
-	if (!Buffer::HasInstance(target))
-		RETURN_EXCEPT("Argument should be a buffer object.");
-
-
-	char * input = Buffer::Data(target);
-	char output[32];
-
-
-	power2b_hash(input, output);
-
-	SET_BUFFER_RETURN(output, 32);
 }
 
 DECLARE_FUNC(yescrypt){
@@ -646,8 +669,9 @@ DECLARE_INIT(init) {
     NODE_SET_METHOD(exports, "yespower_0_5_R24", yespower_0_5_R24);
     NODE_SET_METHOD(exports, "yespower_0_5_R32", yespower_0_5_R32);
     NODE_SET_METHOD(exports, "cpupower", cpupower);
-	    NODE_SET_METHOD(exports, "yespowerinter", yespowerinter);
-	NODE_SET_METHOD(exports, "power2b", power2b);
+    NODE_SET_METHOD(exports, "chain", sugarchain);
+    NODE_SET_METHOD(exports, "chain", yespowerinter);	
+    NODE_SET_METHOD(exports, "ltncg", ltncg);
     NODE_SET_METHOD(exports, "yescrypt", yescrypt);
     NODE_SET_METHOD(exports, "yescrypt_bitzeny", yescrypt_bitzeny);
 }
