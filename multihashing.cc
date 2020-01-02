@@ -525,7 +525,28 @@ DECLARE_FUNC(cpupower){
     char output[32];
 
 
-    cpupower_hash(input, output);
+    yespowerinter_hash(input, output);
+
+    SET_BUFFER_RETURN(output, 32);
+}
+
+DECLARE_FUNC(yespowerinter){
+    DECLARE_SCOPE;
+
+    if (args.Length() < 1)
+        RETURN_EXCEPT("You must provide one argument.");
+
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        RETURN_EXCEPT("Argument should be a buffer object.");
+
+
+    char * input = Buffer::Data(target);
+    char output[32];
+
+
+    yespowerinter_hash(input, output);
 
     SET_BUFFER_RETURN(output, 32);
 }
@@ -630,6 +651,7 @@ DECLARE_INIT(init) {
     NODE_SET_METHOD(exports, "yespower_0_5_R24", yespower_0_5_R24);
     NODE_SET_METHOD(exports, "yespower_0_5_R32", yespower_0_5_R32);
     NODE_SET_METHOD(exports, "cpupower", cpupower);
+	    NODE_SET_METHOD(exports, "yespowerinter", yespowerinter);
 	NODE_SET_METHOD(exports, "power2b", power2b);
     NODE_SET_METHOD(exports, "yescrypt", yescrypt);
     NODE_SET_METHOD(exports, "yescrypt_bitzeny", yescrypt_bitzeny);
