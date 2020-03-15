@@ -38,6 +38,7 @@
                 "sha1.c",
 		"sha256d.c",
                 "x15.c",
+		"minotaur.c",
                 "fresh.c",
                 "sha3/sph_hefty1.c",
                 "sha3/sph_fugue.c",
