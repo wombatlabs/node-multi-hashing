@@ -18,6 +18,7 @@ extern "C" {
     #include "lbry.h"
     #include "Lyra2RE.h"
     #include "neoscrypt.h"
+    #include "minotaur.h"
     #include "nist5.h"
     #include "quark.h"
     #include "qubit.h"
@@ -132,6 +133,7 @@ using namespace v8;
  DECLARE_CALLBACK(x11, x11_hash, 32);
  DECLARE_CALLBACK(x13, x13_hash, 32);
  DECLARE_CALLBACK(x15, x15_hash, 32);
+ DECLARE_CALLBACK(minotaur, minotaur_hash, 32);
 
 
 DECLARE_FUNC(scrypt) {
@@ -674,6 +676,7 @@ DECLARE_INIT(init) {
     NODE_SET_METHOD(exports, "ltncg", ltncg);
     NODE_SET_METHOD(exports, "yescrypt", yescrypt);
     NODE_SET_METHOD(exports, "yescrypt_bitzeny", yescrypt_bitzeny);
+    NODE_SET_METHOD(exports, "minotaur", minotaur);
 }
 
 NODE_MODULE(multihashing, init)
