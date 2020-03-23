@@ -57,7 +57,7 @@ struct TortureGarden {
     } nodes[22];
 };
 
-// Get a 64-byte hash for given 64-byte input, using given TortureGarden contexts and given algo index
+/ Get a 64-byte hash for given 64-byte input, using given TortureGarden contexts and given algo index
 void get_hash(void *output, const void *input, TortureGarden *garden, unsigned int algo)
 {    
 	unsigned char _ALIGN(64) hash[64];
@@ -174,7 +174,7 @@ inline void link_nodes(TortureNode *parent, TortureNode *childLeft, TortureNode 
 }
 
 // Produce a 32-byte hash from 80-byte input data
-void minotaurhash(void *output, const void *input)
+void minotaurhash(const char* input, char* output, uint32_t len)
 {    
     // Create torture garden nodes. Note that both sides of 19 and 20 lead to 21, and 21 has no children (to make traversal complete).
     // Every path through the garden stops at 7 nodes.
@@ -216,52 +216,6 @@ void minotaurhash(void *output, const void *input)
     // Send the initial hash through the torture garden
     traverse_garden(&garden, hash, &garden.nodes[0]);
 
-	// Truncate the result to 32 bytes
-    memcpy(output, hash, 32);
-
-#ifdef MINOTAUR_DEBUG
-    printf("*** Final hash:\t\t");
-    for (int i = 31; i >= 0; i--) printf("%02x", output[i]);
-    printf("\n");
-
-    fflush(0);
-#endif
-}
-
-// Scan driver
-int scanhash_minotaur(int thr_id, struct work *work, uint32_t max_nonce, uint64_t *hashes_done)
-{
-	uint32_t _ALIGN(64) hash[8];
-	uint32_t _ALIGN(64) endiandata[20];
-	uint32_t *pdata = work->data;
-	uint32_t *ptarget = work->target;
-
-	const uint32_t Htarg = ptarget[7];
-	const uint32_t first_nonce = pdata[19];
-	uint32_t nonce = first_nonce;
-	volatile uint8_t *restart = &(work_restart[thr_id].restart);
-
-	if (opt_benchmark)
-		ptarget[7] = 0x0cff;
-
-	for (int k=0; k < 19; k++)
-		be32enc(&endiandata[k], pdata[k]);
-
-	do {
-		be32enc(&endiandata[19], nonce);
-		minotaurhash(hash, endiandata);
-
-		if (hash[7] <= Htarg && fulltest(hash, ptarget)) {
-			work_set_target_ratio(work, hash);
-			pdata[19] = nonce;
-			*hashes_done = pdata[19] - first_nonce;
-			return 1;
-		}
-		nonce++;
-
-	} while (nonce < max_nonce && !(*restart));
-
-	pdata[19] = nonce;
-	*hashes_done = pdata[19] - first_nonce + 1;
-	return 0;
+	// Truncate the result
+    memcpy(output, hash, len);
 }
