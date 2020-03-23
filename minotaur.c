@@ -24,6 +24,12 @@
 #include "sha3/sph_whirlpool.h"
 #include "sha3/sph_sha2.h"
 
+#ifndef _MSC_VER
+#define _ALIGN(x) __attribute__ ((aligned(x)))
+#else
+#define _ALIGN(x) __declspec(align(x))
+#endif
+
 // Config
 #define MINOTAUR_ALGO_COUNT	16
 
@@ -57,7 +63,7 @@ struct TortureGarden {
 };
 
 // Get a 64-byte hash for given 64-byte input, using given TortureGarden contexts and given algo index
-void minotaurhash(void *output, const void *input, TortureGarden *garden, unsigned int algo)
+void get_hash(void *output, const void *input, TortureGarden *garden, unsigned int algo)
 {    
 	unsigned char _ALIGN(64) hash[64];
 
@@ -152,7 +158,7 @@ void minotaurhash(void *output, const void *input, TortureGarden *garden, unsign
 void traverse_garden(TortureGarden *garden, void *hash, TortureNode *node)
 {
     unsigned char _ALIGN(64) partialHash[64];
-    minotaurhash(partialHash, hash, garden, node->algo);
+    get_hash(partialHash, hash, garden, node->algo);
 
     if (partialHash[63] % 2 == 0) {                                     // Last byte of output hash is even
         if (node->childLeft != NULL)
@@ -173,7 +179,7 @@ inline void link_nodes(TortureNode *parent, TortureNode *childLeft, TortureNode 
 }
 
 // Produce a 32-byte hash from 80-byte input data
-void minotaurhash(const char* input, char* output, uint32_t len)
+void minotaur_hash(const char* input, char* output, uint32_t len)
 {    
     // Create torture garden nodes. Note that both sides of 19 and 20 lead to 21, and 21 has no children (to make traversal complete).
     // Every path through the garden stops at 7 nodes.
