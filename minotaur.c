@@ -217,5 +217,5 @@ void minotaurhash(void *output, const void *input)
     traverse_garden(&garden, hash, &garden.nodes[0]);
 
 	// Truncate the result
-    memcpy(output, hash, len);
+    memcpy(output, hash, 32);
 }
