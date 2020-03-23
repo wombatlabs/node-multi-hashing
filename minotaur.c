@@ -57,168 +57,210 @@ struct TortureGarden {
 };
 
 // Get a 64-byte hash for given 64-byte input, using given TortureGarden contexts and given algo index
-uint512 GetHash(uint512 inputHash, TortureGarden *garden, unsigned int algo) {
-    uint512 outputHash;
+void get_hash(void *output, const void *input, TortureGarden *garden, unsigned int algo)
+{    
+	unsigned char _ALIGN(64) hash[64];
+
     switch (algo) {
         case 0:
             sph_blake512_init(&garden->context_blake);
-            sph_blake512(&garden->context_blake, static_cast<const void*>(&inputHash), 64);
-            sph_blake512_close(&garden->context_blake, static_cast<void*>(&outputHash));
+            sph_blake512(&garden->context_blake, input, 64);
+            sph_blake512_close(&garden->context_blake, hash);
             break;
         case 1:
             sph_bmw512_init(&garden->context_bmw);
-            sph_bmw512(&garden->context_bmw, static_cast<const void*>(&inputHash), 64);
-            sph_bmw512_close(&garden->context_bmw, static_cast<void*>(&outputHash));        
+            sph_bmw512(&garden->context_bmw, input, 64);
+            sph_bmw512_close(&garden->context_bmw, hash);        
             break;
         case 2:
             sph_cubehash512_init(&garden->context_cubehash);
-            sph_cubehash512(&garden->context_cubehash, static_cast<const void*>(&inputHash), 64);
-            sph_cubehash512_close(&garden->context_cubehash, static_cast<void*>(&outputHash));
+            sph_cubehash512(&garden->context_cubehash, input, 64);
+            sph_cubehash512_close(&garden->context_cubehash, hash);          
             break;
         case 3:
             sph_echo512_init(&garden->context_echo);
-            sph_echo512(&garden->context_echo, static_cast<const void*>(&inputHash), 64);
-            sph_echo512_close(&garden->context_echo, static_cast<void*>(&outputHash));
+            sph_echo512(&garden->context_echo, input, 64);
+            sph_echo512_close(&garden->context_echo, hash);          
             break;
         case 4:
             sph_fugue512_init(&garden->context_fugue);
-            sph_fugue512(&garden->context_fugue, static_cast<const void*>(&inputHash), 64);
-            sph_fugue512_close(&garden->context_fugue, static_cast<void*>(&outputHash));
+            sph_fugue512(&garden->context_fugue, input, 64);
+            sph_fugue512_close(&garden->context_fugue, hash);          
             break;
         case 5:
             sph_groestl512_init(&garden->context_groestl);
-            sph_groestl512(&garden->context_groestl, static_cast<const void*>(&inputHash), 64);
-            sph_groestl512_close(&garden->context_groestl, static_cast<void*>(&outputHash));
+            sph_groestl512(&garden->context_groestl, input, 64);
+            sph_groestl512_close(&garden->context_groestl, hash);          
             break;
         case 6:
             sph_hamsi512_init(&garden->context_hamsi);
-            sph_hamsi512(&garden->context_hamsi, static_cast<const void*>(&inputHash), 64);
-            sph_hamsi512_close(&garden->context_hamsi, static_cast<void*>(&outputHash));
+            sph_hamsi512(&garden->context_hamsi, input, 64);
+            sph_hamsi512_close(&garden->context_hamsi, hash);          
             break;
         case 7:
             sph_sha512_init(&garden->context_sha2);
-            sph_sha512(&garden->context_sha2, static_cast<const void*>(&inputHash), 64);
-            sph_sha512_close(&garden->context_sha2, static_cast<void*>(&outputHash));
+            sph_sha512(&garden->context_sha2, input, 64);
+            sph_sha512_close(&garden->context_sha2, hash);
             break;
         case 8:
             sph_jh512_init(&garden->context_jh);
-            sph_jh512(&garden->context_jh, static_cast<const void*>(&inputHash), 64);
-            sph_jh512_close(&garden->context_jh, static_cast<void*>(&outputHash));
+            sph_jh512(&garden->context_jh, input, 64);
+            sph_jh512_close(&garden->context_jh, hash);          
             break;
         case 9:
             sph_keccak512_init(&garden->context_keccak);
-            sph_keccak512(&garden->context_keccak, static_cast<const void*>(&inputHash), 64);
-            sph_keccak512_close(&garden->context_keccak, static_cast<void*>(&outputHash));
+            sph_keccak512(&garden->context_keccak, input, 64);
+            sph_keccak512_close(&garden->context_keccak, hash);
             break;
         case 10:
             sph_luffa512_init(&garden->context_luffa);
-            sph_luffa512(&garden->context_luffa, static_cast<const void*>(&inputHash), 64);
-            sph_luffa512_close(&garden->context_luffa, static_cast<void*>(&outputHash));
+            sph_luffa512(&garden->context_luffa, input, 64);
+            sph_luffa512_close(&garden->context_luffa, hash);          
             break;
         case 11:
             sph_shabal512_init(&garden->context_shabal);
-            sph_shabal512(&garden->context_shabal, static_cast<const void*>(&inputHash), 64);
-            sph_shabal512_close(&garden->context_shabal, static_cast<void*>(&outputHash));
+            sph_shabal512(&garden->context_shabal, input, 64);
+            sph_shabal512_close(&garden->context_shabal, hash);          
             break;
         case 12:
             sph_shavite512_init(&garden->context_shavite);
-            sph_shavite512(&garden->context_shavite, static_cast<const void*>(&inputHash), 64);
-            sph_shavite512_close(&garden->context_shavite, static_cast<void*>(&outputHash));
+            sph_shavite512(&garden->context_shavite, input, 64);
+            sph_shavite512_close(&garden->context_shavite, hash);          
             break;
         case 13:
             sph_simd512_init(&garden->context_simd);
-            sph_simd512(&garden->context_simd, static_cast<const void*>(&inputHash), 64);
-            sph_simd512_close(&garden->context_simd, static_cast<void*>(&outputHash));
+            sph_simd512(&garden->context_simd, input, 64);
+            sph_simd512_close(&garden->context_simd, hash);          
             break;
         case 14:
             sph_skein512_init(&garden->context_skein);
-            sph_skein512(&garden->context_skein, static_cast<const void*>(&inputHash), 64);
-            sph_skein512_close(&garden->context_skein, static_cast<void*>(&outputHash));
+            sph_skein512(&garden->context_skein, input, 64);
+            sph_skein512_close(&garden->context_skein, hash);          
             break;
         case 15:
             sph_whirlpool_init(&garden->context_whirlpool);
-            sph_whirlpool(&garden->context_whirlpool, static_cast<const void*>(&inputHash), 64);
-            sph_whirlpool_close(&garden->context_whirlpool, static_cast<void*>(&outputHash));
-            break;
-        default:
-            assert(false);
+            sph_whirlpool(&garden->context_whirlpool, input, 64);
+            sph_whirlpool_close(&garden->context_whirlpool, hash);          
             break;
     }
 
-    return outputHash;
+    // Output the hash
+    memcpy(output, hash, 64);
 }
 
 // Recursively traverse a given torture garden starting with a given hash and given node within the garden. The hash is overwritten with the final hash.
-uint512 TraverseGarden(TortureGarden *garden, uint512 hash, TortureNode *node) {
-    uint512 partialHash = GetHash(hash, garden, node->algo);
+void traverse_garden(TortureGarden *garden, void *hash, TortureNode *node)
+{
+    unsigned char _ALIGN(64) partialHash[64];
+    get_hash(partialHash, hash, garden, node->algo);
 
-#ifdef MINOTAUR_DEBUG
-    printf("* Ran algo %d. Partial hash:\t%s\n", node->algo, partialHash.ToString().c_str());
-    fflush(0);
-#endif
-
-    if (partialHash.ByteAt(63) % 2 == 0) {      // Last byte of output hash is even
+    if (partialHash[63] % 2 == 0) {                                     // Last byte of output hash is even
         if (node->childLeft != NULL)
-            return TraverseGarden(garden, partialHash, node->childLeft);
-    } else {                                    // Last byte of output hash is odd
+            traverse_garden(garden, partialHash, node->childLeft);
+    } else {                                                            // Last byte of output hash is odd
         if (node->childRight != NULL)
-            return TraverseGarden(garden, partialHash, node->childRight);
+            traverse_garden(garden, partialHash, node->childRight);
     }
 
-    return partialHash;
+    memcpy(hash, partialHash, 64);
 }
 
 // Associate child nodes with a parent node
-void LinkNodes(TortureNode *parent, TortureNode *childLeft, TortureNode *childRight) {
+inline void link_nodes(TortureNode *parent, TortureNode *childLeft, TortureNode *childRight) 
+{
     parent->childLeft = childLeft;
     parent->childRight = childRight;
 }
 
-// Produce a Minotaur 32-byte hash from variable length data
-template<typename T> uint256 Minotaur(const T begin, const T end) {
+// Produce a 32-byte hash from 80-byte input data
+void minotaurhash(void *output, const void *input)
+{    
     // Create torture garden nodes. Note that both sides of 19 and 20 lead to 21, and 21 has no children (to make traversal complete).
     // Every path through the garden stops at 7 nodes.
     TortureGarden garden;
-    LinkNodes(&garden.nodes[0], &garden.nodes[1], &garden.nodes[2]);
-    LinkNodes(&garden.nodes[1], &garden.nodes[3], &garden.nodes[4]);
-    LinkNodes(&garden.nodes[2], &garden.nodes[5], &garden.nodes[6]);
-    LinkNodes(&garden.nodes[3], &garden.nodes[7], &garden.nodes[8]);
-    LinkNodes(&garden.nodes[4], &garden.nodes[9], &garden.nodes[10]);
-    LinkNodes(&garden.nodes[5], &garden.nodes[11], &garden.nodes[12]);
-    LinkNodes(&garden.nodes[6], &garden.nodes[13], &garden.nodes[14]);
-    LinkNodes(&garden.nodes[7], &garden.nodes[15], &garden.nodes[16]);
-    LinkNodes(&garden.nodes[8], &garden.nodes[15], &garden.nodes[16]);
-    LinkNodes(&garden.nodes[9], &garden.nodes[15], &garden.nodes[16]);
-    LinkNodes(&garden.nodes[10], &garden.nodes[15], &garden.nodes[16]);
-    LinkNodes(&garden.nodes[11], &garden.nodes[17], &garden.nodes[18]);
-    LinkNodes(&garden.nodes[12], &garden.nodes[17], &garden.nodes[18]);
-    LinkNodes(&garden.nodes[13], &garden.nodes[17], &garden.nodes[18]);
-    LinkNodes(&garden.nodes[14], &garden.nodes[17], &garden.nodes[18]);
-    LinkNodes(&garden.nodes[15], &garden.nodes[19], &garden.nodes[20]);
-    LinkNodes(&garden.nodes[16], &garden.nodes[19], &garden.nodes[20]);
-    LinkNodes(&garden.nodes[17], &garden.nodes[19], &garden.nodes[20]);
-    LinkNodes(&garden.nodes[18], &garden.nodes[19], &garden.nodes[20]);
-    LinkNodes(&garden.nodes[19], &garden.nodes[21], &garden.nodes[21]);
-    LinkNodes(&garden.nodes[20], &garden.nodes[21], &garden.nodes[21]);
+    link_nodes(&garden.nodes[0], &garden.nodes[1], &garden.nodes[2]);
+    link_nodes(&garden.nodes[1], &garden.nodes[3], &garden.nodes[4]);
+    link_nodes(&garden.nodes[2], &garden.nodes[5], &garden.nodes[6]);
+    link_nodes(&garden.nodes[3], &garden.nodes[7], &garden.nodes[8]);
+    link_nodes(&garden.nodes[4], &garden.nodes[9], &garden.nodes[10]);
+    link_nodes(&garden.nodes[5], &garden.nodes[11], &garden.nodes[12]);
+    link_nodes(&garden.nodes[6], &garden.nodes[13], &garden.nodes[14]);
+    link_nodes(&garden.nodes[7], &garden.nodes[15], &garden.nodes[16]);
+    link_nodes(&garden.nodes[8], &garden.nodes[15], &garden.nodes[16]);
+    link_nodes(&garden.nodes[9], &garden.nodes[15], &garden.nodes[16]);
+    link_nodes(&garden.nodes[10], &garden.nodes[15], &garden.nodes[16]);
+    link_nodes(&garden.nodes[11], &garden.nodes[17], &garden.nodes[18]);
+    link_nodes(&garden.nodes[12], &garden.nodes[17], &garden.nodes[18]);
+    link_nodes(&garden.nodes[13], &garden.nodes[17], &garden.nodes[18]);
+    link_nodes(&garden.nodes[14], &garden.nodes[17], &garden.nodes[18]);
+    link_nodes(&garden.nodes[15], &garden.nodes[19], &garden.nodes[20]);
+    link_nodes(&garden.nodes[16], &garden.nodes[19], &garden.nodes[20]);
+    link_nodes(&garden.nodes[17], &garden.nodes[19], &garden.nodes[20]);
+    link_nodes(&garden.nodes[18], &garden.nodes[19], &garden.nodes[20]);
+    link_nodes(&garden.nodes[19], &garden.nodes[21], &garden.nodes[21]);
+    link_nodes(&garden.nodes[20], &garden.nodes[21], &garden.nodes[21]);
     garden.nodes[21].childLeft = NULL;
     garden.nodes[21].childRight = NULL;
         
-    // Find initial sha512 hash of the variable length data
-    uint512 hash;
-    static unsigned char empty[1];
-    sph_sha512_init(&garden.context_sha2);
-    sph_sha512(&garden.context_sha2, (begin == end ? empty : static_cast<const void*>(&begin[0])), (end - begin) * sizeof(begin[0]));
-    sph_sha512_close(&garden.context_sha2, static_cast<void*>(&hash));
+    // Find initial sha512 hash
+    unsigned char _ALIGN(64) hash[64];
+	sph_sha512_init(&garden.context_sha2);
+	sph_sha512(&garden.context_sha2, input, 80);
+	sph_sha512_close(&garden.context_sha2, hash);
 
-    // Assign algos to torture net nodes based on initial hash
+    // Assign algos to torture garden nodes based on initial hash
     for (int i = 0; i < 22; i++)
-        garden.nodes[i].algo = hash.ByteAt(i) % MINOTAUR_ALGO_COUNT;
+        garden.nodes[i].algo = hash[i] % MINOTAUR_ALGO_COUNT;
 
     // Send the initial hash through the torture garden
-    hash = TraverseGarden(&garden, hash, &garden.nodes[0]);
+    traverse_garden(&garden, hash, &garden.nodes[0]);
 
-    // Return truncated result
-    return uint256(hash);
+	// Truncate the result to 32 bytes
+    memcpy(output, hash, 32);
+
+#ifdef MINOTAUR_DEBUG
+    printf("*** Final hash:\t\t");
+    for (int i = 31; i >= 0; i--) printf("%02x", output[i]);
+    printf("\n");
+
+    fflush(0);
+#endif
 }
 
-#endif // RING_CRYPTO_POW_MINOTAUR_H
+// Scan driver
+int scanhash_minotaur(int thr_id, struct work *work, uint32_t max_nonce, uint64_t *hashes_done)
+{
+	uint32_t _ALIGN(64) hash[8];
+	uint32_t _ALIGN(64) endiandata[20];
+	uint32_t *pdata = work->data;
+	uint32_t *ptarget = work->target;
+
+	const uint32_t Htarg = ptarget[7];
+	const uint32_t first_nonce = pdata[19];
+	uint32_t nonce = first_nonce;
+	volatile uint8_t *restart = &(work_restart[thr_id].restart);
+
+	if (opt_benchmark)
+		ptarget[7] = 0x0cff;
+
+	for (int k=0; k < 19; k++)
+		be32enc(&endiandata[k], pdata[k]);
+
+	do {
+		be32enc(&endiandata[19], nonce);
+		minotaurhash(hash, endiandata);
+
+		if (hash[7] <= Htarg && fulltest(hash, ptarget)) {
+			work_set_target_ratio(work, hash);
+			pdata[19] = nonce;
+			*hashes_done = pdata[19] - first_nonce;
+			return 1;
+		}
+		nonce++;
+
+	} while (nonce < max_nonce && !(*restart));
+
+	pdata[19] = nonce;
+	*hashes_done = pdata[19] - first_nonce + 1;
+	return 0;
+}
