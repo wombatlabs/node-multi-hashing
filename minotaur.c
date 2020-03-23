@@ -57,7 +57,7 @@ struct TortureGarden {
 };
 
 // Get a 64-byte hash for given 64-byte input, using given TortureGarden contexts and given algo index
-void get_hash(void *output, const void *input, TortureGarden *garden, unsigned int algo)
+void minotaur_hash(void *output, const void *input, TortureGarden *garden, unsigned int algo)
 {    
 	unsigned char _ALIGN(64) hash[64];
 
