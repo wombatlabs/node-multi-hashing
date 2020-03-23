@@ -9,7 +9,7 @@ extern "C" {
 
 #include <stdint.h>
 
-void minotaur_hash(const char* input, char* output, uint32_t len);
+void minotaur_hash(const char* input, char* output);
 
 #ifdef __cplusplus
 }
