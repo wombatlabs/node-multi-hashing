@@ -25,8 +25,7 @@
 #include "sha3/sph_sha2.h"
 
 // Config
-#define MINOTAUR_ALGO_COUNT		16
-//#define MINOTAUR_DEBUG
+#define MINOTAUR_ALGO_COUNT	16
 
 typedef struct TortureNode TortureNode;
 typedef struct TortureGarden TortureGarden;
@@ -66,7 +65,7 @@ void get_hash(void *output, const void *input, TortureGarden *garden, unsigned i
         case 0:
             sph_blake512_init(&garden->context_blake);
             sph_blake512(&garden->context_blake, input, 64);
-            sph_blake512_close(&garden->context_blake, hash);
+            sph_blake512_close(&garden->context_blake, _ALIGN);
             break;
         case 1:
             sph_bmw512_init(&garden->context_bmw);
@@ -174,7 +173,7 @@ inline void link_nodes(TortureNode *parent, TortureNode *childLeft, TortureNode 
 }
 
 // Produce a 32-byte hash from 80-byte input data
-void minotaurhash(void *output, const void *input)
+void minotaurhash(const char* input, char* output, uint32_t len)
 {    
     // Create torture garden nodes. Note that both sides of 19 and 20 lead to 21, and 21 has no children (to make traversal complete).
     // Every path through the garden stops at 7 nodes.
@@ -217,5 +216,5 @@ void minotaurhash(void *output, const void *input)
     traverse_garden(&garden, hash, &garden.nodes[0]);
 
 	// Truncate the result
-    memcpy(output, hash, 32);
+    memcpy(output, hash, len);
 }
