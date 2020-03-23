@@ -59,13 +59,13 @@ struct TortureGarden {
 // Get a 64-byte hash for given 64-byte input, using given TortureGarden contexts and given algo index
 void get_hash(void *output, const void *input, TortureGarden *garden, unsigned int algo)
 {    
-	unsigned char _ALIGN(64) hash[64];
+	unsigned char  hash[64];
 
     switch (algo) {
         case 0:
             sph_blake512_init(&garden->context_blake);
             sph_blake512(&garden->context_blake, input, 64);
-            sph_blake512_close(&garden->context_blake, _ALIGN);
+            sph_blake512_close(&garden->context_blake, hash);
             break;
         case 1:
             sph_bmw512_init(&garden->context_bmw);
@@ -151,7 +151,7 @@ void get_hash(void *output, const void *input, TortureGarden *garden, unsigned i
 // Recursively traverse a given torture garden starting with a given hash and given node within the garden. The hash is overwritten with the final hash.
 void traverse_garden(TortureGarden *garden, void *hash, TortureNode *node)
 {
-    unsigned char _ALIGN(64) partialHash[64];
+    unsigned char  partialHash[64];
     get_hash(partialHash, hash, garden, node->algo);
 
     if (partialHash[63] % 2 == 0) {                                     // Last byte of output hash is even
@@ -203,7 +203,7 @@ void minotaurhash(const char* input, char* output, uint32_t len)
     garden.nodes[21].childRight = NULL;
         
     // Find initial sha512 hash
-    unsigned char _ALIGN(64) hash[64];
+    unsigned char  hash[64];
 	sph_sha512_init(&garden.context_sha2);
 	sph_sha512(&garden.context_sha2, input, 80);
 	sph_sha512_close(&garden.context_sha2, hash);
