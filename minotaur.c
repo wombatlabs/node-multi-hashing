@@ -211,7 +211,7 @@ void minotaur_hash(const char* input, char* output, uint32_t len)
     // Find initial sha512 hash
     unsigned char _ALIGN(64) hash[64];
 	sph_sha512_init(&garden.context_sha2);
-	sph_sha512(&garden.context_sha2, input, 80);
+	sph_sha512(&garden.context_sha2, input, len);
 	sph_sha512_close(&garden.context_sha2, hash);
 
     // Assign algos to torture garden nodes based on initial hash
@@ -222,5 +222,5 @@ void minotaur_hash(const char* input, char* output, uint32_t len)
     traverse_garden(&garden, hash, &garden.nodes[0]);
 
 	// Truncate the result
-    memcpy(output, hash, len);
+    memcpy(output, hash, 32);
 }
