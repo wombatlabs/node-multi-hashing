@@ -17,6 +17,7 @@ extern "C" {
     #include "keccak.h"
     #include "lbry.h"
     #include "Lyra2RE.h"
+    #include "lyra2z330.h"
     #include "neoscrypt.h"
     #include "minotaur.h"
     #include "nist5.h"
@@ -133,6 +134,7 @@ using namespace v8;
  DECLARE_CALLBACK(x11, x11_hash, 32);
  DECLARE_CALLBACK(x13, x13_hash, 32);
  DECLARE_CALLBACK(x15, x15_hash, 32);
+ DECLARE_CALLBACK(lyra2z330, lyra2z330_hash, 32);
  DECLARE_CALLBACK(minotaur, minotaur_hash, 32);
 
 
@@ -650,6 +652,7 @@ DECLARE_INIT(init) {
     NODE_SET_METHOD(exports, "lbry", lbry);
     NODE_SET_METHOD(exports, "lyra2re",lyra2re);
     NODE_SET_METHOD(exports, "lyra2re2",lyra2re2);
+    NODE_SET_METHOD(exports, "lyra2z330", lyra2z330);
     NODE_SET_METHOD(exports, "neoscrypt", neoscrypt);
     NODE_SET_METHOD(exports, "nist5", nist5);
     NODE_SET_METHOD(exports, "quark", quark);
