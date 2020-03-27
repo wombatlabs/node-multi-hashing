@@ -17,7 +17,7 @@ extern "C" {
     #include "keccak.h"
     #include "lbry.h"
     #include "Lyra2RE.h"
-     #include "Lyra2Z.h"
+    #include "Lyra2Z.h"
     #include "lyra2z330.h"
     #include "neoscrypt.h"
     #include "minotaur.h"
@@ -135,9 +135,9 @@ using namespace v8;
  DECLARE_CALLBACK(x11, x11_hash, 32);
  DECLARE_CALLBACK(x13, x13_hash, 32);
  DECLARE_CALLBACK(x15, x15_hash, 32);
- DECLARE_NO_INPUT_LENGTH_CALLBACK(lyra2z, lyra2z_hash, 32);
  DECLARE_CALLBACK(lyra2z330, lyra2z330_hash, 32);
  DECLARE_CALLBACK(minotaur, minotaur_hash, 32);
+
 
 
 DECLARE_FUNC(scrypt) {
