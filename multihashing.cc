@@ -651,7 +651,6 @@ DECLARE_INIT(init) {
     NODE_SET_METHOD(exports, "hefty1", hefty1);
     NODE_SET_METHOD(exports, "keccak", keccak);
     NODE_SET_METHOD(exports, "lbry", lbry);
-    NODE_SET_METHOD(exports, "lyra2z", lyra2z);
     NODE_SET_METHOD(exports, "lyra2re",lyra2re);
     NODE_SET_METHOD(exports, "lyra2re2",lyra2re2);
     NODE_SET_METHOD(exports, "lyra2z330", lyra2z330);
