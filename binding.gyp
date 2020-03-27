@@ -20,6 +20,7 @@
                 "skein.c",
                 "x11.c",
                 "Lyra2RE.c",
+	        "lyra2z330.c",
                 "Lyra2.c",
 		"Sponge.c",
                 "quark.c",
