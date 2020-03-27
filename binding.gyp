@@ -21,7 +21,6 @@
                 "x11.c",
 		"Lyra2.c",
                 "Lyra2RE.c",
-	        "Lyra2Z.c",
 	        "lyra2z330.c",
                 "Lyra2.c",
 		"Sponge.c",
