@@ -17,7 +17,6 @@ extern "C" {
     #include "keccak.h"
     #include "lbry.h"
     #include "Lyra2RE.h"
-    #include "Lyra2Z.h"
     #include "lyra2z330.h"
     #include "neoscrypt.h"
     #include "minotaur.h"
