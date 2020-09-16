@@ -19,6 +19,7 @@
 		"lbry.c",
                 "skein.c",
                 "x11.c",
+		"x11k.c",
 		"Lyra2.c",
                 "Lyra2RE.c",
 	        "lyra2z330.c",
