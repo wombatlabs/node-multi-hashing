@@ -100,7 +100,7 @@
                 "crypto/odocrypt.cpp",
                 "crypto/wild_keccak.cpp",
                 "yespower/yespower.c",
-                "yespower/yespower-opt.c",
+                "yespower/yespower-opt.c"
             ],
             'conditions': [
                 ['OS=="linux"',
