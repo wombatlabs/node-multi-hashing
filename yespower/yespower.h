@@ -140,3 +140,4 @@ void yespower_sugar_hash(const char* input, char* output, uint32_t len);
 void yespower_ltncg_hash(const char* input, char* output);
 void yespower_r16_hash(const char* input, char* output);
 void cpupower_hash(const char* input, char* output);
+void power2b_hash(const char* input, char* output);

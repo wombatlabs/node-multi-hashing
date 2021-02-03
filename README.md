@@ -36,6 +36,7 @@ Algorithms
 * sha256d
 * lbry
 * cpupower
+* power2b
 
 Usage
 -----
