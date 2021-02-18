@@ -164,7 +164,7 @@ void power2b_hash(const char* input, char* output)
             .version = YESPOWER_1_0,
             .N = 2048,
             .r = 32,
-            .pers = "Now I am become Death, the destroyer of worlds",
+            .pers = (const uint8_t*)"Now I am become Death, the destroyer of worlds",
             .perslen = 46
     };
     yespower_tls((const uint8_t*)input, 80, &params, (yespower_binary_t*)output);
