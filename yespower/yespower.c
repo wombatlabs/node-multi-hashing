@@ -27,6 +27,7 @@
  */
 
 #include "yespower.h"
+#include "crypto/blake2b-yp.h"
 
  // for YesPoWer-0.9/1.0 (Cryply, Bellcoin)
 void yespower_hash(const char* input, char* output)
@@ -131,41 +132,13 @@ void yespower_ltncg_hash(const char* input, char* output)
     yespower_tls((const uint8_t*)input, 80, &params, (yespower_binary_t*)output);
 }
 
-// for YespowerR16 (Yenten)
-void yespower_r16_hash(const char* input, char* output)
+void yespower_b2b_hash(const char* input, char* output)
 {
-    yespower_params_t params = {
-            .version = YESPOWER_1_0,
-            .N = 4096,
-            .r = 16,
-            .pers = NULL,
-            .perslen = 0
+    static const yespower_params_t params = {
+        .N = 2048,
+        .r = 32,
+        .pers = (const uint8_t *)"Now I am become Death, the destroyer of worlds",
+        .perslen = 46
     };
-    yespower_tls((const uint8_t*)input, 80, &params, (yespower_binary_t*)output);
-}
-
-// for cpupower
-void cpupower_hash(const char* input, char* output)
-{
-    yespower_params_t params = {
-            .version = YESPOWER_1_0,
-            .N = 2048,
-            .r = 32,
-            .pers = "CPUpower: The number of CPU working or available for proof-of-work mining",
-            .perslen = 73
-    };
-    yespower_tls((const uint8_t*)input, 80, &params, (yespower_binary_t*)output);
-}
-
-// for power2b
-void power2b_hash(const char* input, char* output)
-{
-    yespower_params_t params = {
-            .version = YESPOWER_1_0,
-            .N = 2048,
-            .r = 32,
-            .pers = (const uint8_t*)"Now I am become Death, the destroyer of worlds",
-            .perslen = 46
-    };
-    yespower_tls((const uint8_t*)input, 80, &params, (yespower_binary_t*)output);
+    yespower_b2b_tls((const uint8_t*)input, 80, &params, (yespower_binary_t*)output);
 }

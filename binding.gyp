@@ -52,7 +52,6 @@
                 "x15.c",
                 "x16r.c",
                 "x17.c",
-                "x25x.c",
                 "xevan.c",
                 "zr5.c",
                 "sha3/aes_helper.c",
@@ -80,15 +79,12 @@
                 "sha3/sph_sha2.c",
                 "sha3/sph_sha2big.c",
                 "sha3/sph_tiger.c",
-                "sph/extra.c",
-                "sph/extra.h",
-                "sph/lane.h",
-                "sph/panama.c"
-                "sph/SWIFFTX.h"
+                "sph/sph_cubehash.h", 
                 "sph/sph_echo.h",
-                "sph/sph_panama.h",
-                "sph/sph_shavite.h",
-                "sph/sph_whirlpool.h",
+                "sph/sph_fungue.h",
+                "sph/sph_gost.h",
+                "sph/sph_jh.h",
+                "sph/sph_skein.h",
                 "crypto/aesb.c",
                 "crypto/c_blake256.c",
                 "crypto/c_groestl.c",
@@ -100,7 +96,10 @@
                 "crypto/odocrypt.cpp",
                 "crypto/wild_keccak.cpp",
                 "yespower/yespower.c",
-                "yespower/yespower-opt.c"
+                "yespower/yespower-opt.c",
+                "yespower/yespower-blake2b.c",
+                "yespower/crypto/blake2b-yp.c",
+                "cpupower/cpupower.c"
             ],
             'conditions': [
                 ['OS=="linux"',

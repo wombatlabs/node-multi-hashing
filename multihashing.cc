@@ -47,9 +47,10 @@ extern "C" {
 #include "x15.h"
 #include "x16r.h"
 #include "x17.h"
-#include "x25x.h"
 #include "xevan.h"
 #include "yespower/yespower.h"
+#include "cpupower/cpupower.h"
+#include "yespower/crypto/blake2b-yp.h"
 }
 
 #include "boolberry.h"
@@ -232,20 +233,15 @@ DECLARE_NO_INPUT_LENGTH_CALLBACK(lyra2re2, lyra2re2_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(lyra2rev2, lyra2rev2_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(lyra2rev3, lyra2rev3_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(lyra2z, lyra2z_hash, 32);
-DECLARE_NO_INPUT_LENGTH_CALLBACK(m7, m7_hash, 32);
-DECLARE_NO_INPUT_LENGTH_CALLBACK(m7m, m7m_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(phi1612, phi1612_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(tribus, tribus_hash, 32);
-DECLARE_NO_INPUT_LENGTH_CALLBACK(x25x, x25x_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower, yespower_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower_0_5_R8, yespower_0_5_R8_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower_0_5_R16, yespower_0_5_R16_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower_0_5_R24, yespower_0_5_R24_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower_0_5_R32, yespower_0_5_R32_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower_ltncg, yespower_ltncg_hash, 32);
-DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower_r16, yespower_r16_hash, 32);
-DECLARE_NO_INPUT_LENGTH_CALLBACK(cpupower, cpupower_hash, 32);
-DECLARE_NO_INPUT_LENGTH_CALLBACK(power2b, power2b_hash, 32);
+//DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower_b2b, yespower_b2b_hash, 32);
 
 DECLARE_FUNC(scrypt) {
     DECLARE_SCOPE;
@@ -649,6 +645,51 @@ DECLARE_FUNC(yespower_sugar) {
     SET_BUFFER_RETURN(output, 32);
 }
 
+DECLARE_FUNC(cpupower){
+    DECLARE_SCOPE;
+
+    if (args.Length() < 1)
+        RETURN_EXCEPT("You must provide one argument.");
+
+    Local<Object> target = args[0]->ToObject();
+
+    if(!Buffer::HasInstance(target))
+        RETURN_EXCEPT("Argument should be a buffer object.");
+
+
+    char * input = Buffer::Data(target);
+    char output[32];
+
+    cpupower_hash(input, output);
+
+    SET_BUFFER_RETURN(output, 32);
+}
+
+DECLARE_FUNC(yespower_b2b) {
+    DECLARE_SCOPE;
+
+    if (args.Length() < 1)
+        RETURN_EXCEPT("You must provide one argument.");
+
+#if NODE_MAJOR_VERSION >= 12
+    Local<Object> target = args[0]->ToObject(isolate);
+#else
+    Local<Object> target = args[0]->ToObject();
+#endif
+
+    if (!Buffer::HasInstance(target))
+        RETURN_EXCEPT("Argument should be a buffer object.");
+
+
+    char* input = Buffer::Data(target);
+    uint32_t input_len = Buffer::Length(target);
+    char output[32];
+
+    blake2b_yp_hash(input, output, 0);
+
+    SET_BUFFER_RETURN(output, 32);
+}
+
 DECLARE_INIT(init) {
     NODE_SET_METHOD(exports, "allium", allium);
     NODE_SET_METHOD(exports, "bcrypt", bcrypt);
@@ -673,8 +714,6 @@ DECLARE_INIT(init) {
     NODE_SET_METHOD(exports, "lyra2z", lyra2z);
     NODE_SET_METHOD(exports, "lyra2z16m330", lyra2z16m330);
     NODE_SET_METHOD(exports, "lyra2z330", lyra2z330);
-    NODE_SET_METHOD(exports, "m7", m7);
-    NODE_SET_METHOD(exports, "m7m", m7m);
     NODE_SET_METHOD(exports, "minotaur", minotaur);
     NODE_SET_METHOD(exports, "neoscrypt", neoscrypt);
     NODE_SET_METHOD(exports, "nist5", nist5);
@@ -697,7 +736,6 @@ DECLARE_INIT(init) {
     NODE_SET_METHOD(exports, "x16r", x16r);
     NODE_SET_METHOD(exports, "x16rv2", x16rv2);
     NODE_SET_METHOD(exports, "x17", x17);
-    NODE_SET_METHOD(exports, "x25x", x25x);
     NODE_SET_METHOD(exports, "xevan", xevan);
     NODE_SET_METHOD(exports, "yespower", yespower);
     NODE_SET_METHOD(exports, "yespower_0_5_R8", yespower_0_5_R8);
@@ -707,9 +745,8 @@ DECLARE_INIT(init) {
     NODE_SET_METHOD(exports, "yespower_0_5_R32", yespower_0_5_R32);
     NODE_SET_METHOD(exports, "yespower_sugar", yespower_sugar);
     NODE_SET_METHOD(exports, "yespower_ltncg", yespower_ltncg);
-    NODE_SET_METHOD(exports, "yespower_r16", yespower_r16);
+    NODE_SET_METHOD(exports, "yespower_b2b", yespower_b2b);
     NODE_SET_METHOD(exports, "cpupower", cpupower);
-    NODE_SET_METHOD(exports, "power2b", power2b);
 }
 
 NODE_MODULE(multihashing, init)

@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/blockinator/node-multi-hashing.git"
+        "url": "https://github.com/ROZ-MOFUMOFU-ME/node-multi-hashing.git"
     },
     "dependencies": {
         "bindings": "^1.3.0",

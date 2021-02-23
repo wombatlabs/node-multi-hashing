@@ -110,6 +110,9 @@ extern "C" {
 	extern int yespower(yespower_local_t* local,
 		const uint8_t* src, size_t srclen,
 		const yespower_params_t* params, yespower_binary_t* dst);
+	extern int yespower_b2b(yespower_local_t *local,
+    		const uint8_t *src, size_t srclen,
+    		const yespower_params_t *params, yespower_binary_t *dst);
 
 	/**
 	 * yespower_tls(src, srclen, params, dst):
@@ -122,6 +125,8 @@ extern "C" {
 	 */
 	extern int yespower_tls(const uint8_t* src, size_t srclen,
 		const yespower_params_t* params, yespower_binary_t* dst);
+	extern int yespower_b2b_tls(const uint8_t *src, size_t srclen,
+    		const yespower_params_t *params, yespower_binary_t *dst);
 
 #ifdef __cplusplus
 }
@@ -138,6 +143,4 @@ void yespower_0_5_R24_hash(const char* input, char* output);
 void yespower_0_5_R32_hash(const char* input, char* output);
 void yespower_sugar_hash(const char* input, char* output, uint32_t len);
 void yespower_ltncg_hash(const char* input, char* output);
-void yespower_r16_hash(const char* input, char* output);
-void cpupower_hash(const char* input, char* output);
-void power2b_hash(const char* input, char* output);
+void yespower_b2b_hash(const char* input, char* output);
