@@ -241,6 +241,7 @@ DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower_0_5_R16, yespower_0_5_R16_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower_0_5_R24, yespower_0_5_R24_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower_0_5_R32, yespower_0_5_R32_hash, 32);
 DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower_ltncg, yespower_ltncg_hash, 32);
+DECLARE_NO_INPUT_LENGTH_CALLBACK(cpupower, cpupower_hash, 32);
 //DECLARE_NO_INPUT_LENGTH_CALLBACK(yespower_b2b, yespower_b2b_hash, 32);
 
 DECLARE_FUNC(scrypt) {
@@ -641,26 +642,6 @@ DECLARE_FUNC(yespower_sugar) {
     char output[32];
 
     yespower_sugar_hash(input, output, input_len);
-
-    SET_BUFFER_RETURN(output, 32);
-}
-
-DECLARE_FUNC(cpupower){
-    DECLARE_SCOPE;
-
-    if (args.Length() < 1)
-        RETURN_EXCEPT("You must provide one argument.");
-
-    Local<Object> target = args[0]->ToObject();
-
-    if(!Buffer::HasInstance(target))
-        RETURN_EXCEPT("Argument should be a buffer object.");
-
-
-    char * input = Buffer::Data(target);
-    char output[32];
-
-    cpupower_hash(input, output);
 
     SET_BUFFER_RETURN(output, 32);
 }
